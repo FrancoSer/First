@@ -1,30 +1,21 @@
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
--- Schema PeluqueriaCanina
+-- Base de Datos - PeluqueriaCanina
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS PeluqueriaCanina ;
-
--- -----------------------------------------------------
--- Schema PeluqueriaCanina
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS PeluqueriaCanina DEFAULT CHARACTER SET utf8 ;
+CREATE DATABASE IF NOT EXISTS PeluqueriaCanina;
 USE PeluqueriaCanina ;
 
 -- -----------------------------------------------------
 -- Tabla "PeluqueriaCanina.Dueño"
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS PeluqueriaCanina.Dueno (
-  DNI INT NOT NULL,
+  DNI INT NOT NULL UNIQUE,
   Nombre VARCHAR(45) NOT NULL,
   Apellido VARCHAR(45) NOT NULL,
   Telefono bigint NOT NULL,
   Direccion TEXT(55) NOT NULL,
-  PRIMARY KEY (DNI))
-ENGINE = InnoDB;
+  CONSTRAINT PRIMARY KEY (DNI)
+);
 
 
 -- -----------------------------------------------------
@@ -35,17 +26,12 @@ CREATE TABLE IF NOT EXISTS PeluqueriaCanina.Perro (
   NombrePerro VARCHAR(45) NOT NULL,
   Fecha_nac DATE NOT NULL,
   Sexo VARCHAR(45) NOT NULL,
-  DNI_dueno INT NULL,
+  DNI_dueno INT NOT NULL,
   PRIMARY KEY (idPerro),
   CONSTRAINT DNI_dueno
     FOREIGN KEY (DNI_dueno)
     REFERENCES PeluqueriaCanina.Dueno (DNI)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX DNI_dueno_idx ON PeluqueriaCanina.Perro (DNI_dueno ASC) VISIBLE;
-
+);
 
 -- -----------------------------------------------------
 -- Tabla "PeluqueriaCanina.Historial"
@@ -60,15 +46,8 @@ CREATE TABLE IF NOT EXISTS PeluqueriaCanina.Historial (
   CONSTRAINT Perro
     FOREIGN KEY (Perro)
     REFERENCES PeluqueriaCanina.Perro (idPerro)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+);
 
-CREATE INDEX Perro_idx ON PeluqueriaCanina.Historial (Perro ASC) VISIBLE;
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- 2.Inserte en la tabla correspondiente un nuevo animal (perro) como paciente y el dueño asociado a ese animal.
 INSERT INTO Dueno (DNI, Nombre, Apellido, Telefono, Direccion) 
@@ -109,4 +88,4 @@ AND Perro.idPerro NOT IN
 	FROM Historial
     WHERE Fecha >= "2022-01-01");
     
-#El resultado es el dni 34.818.899 que corresponde a Marieta dueña del perro llamado Black que es el unico que cumple con los requisitos del ejercicio numero 11.
+#El resultado es el dni 34.818.899 que corresponde a Marieta dueña del perro llamado Black que es el unico que cumple con los requisitos del ejercicio nuduenomero 11.
