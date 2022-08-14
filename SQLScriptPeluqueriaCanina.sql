@@ -109,4 +109,4 @@ AND Perro.idPerro NOT IN
 	FROM Historial
     WHERE Fecha >= "2022-01-01");
     
-#El resultado es el dni 34.818.899 que corresponde a Marieta dueña del perro llamado Black que es el unico que cumple con los requisitos del ejercicio nuduenomero 11.
+#El resultado es el dni 34.818.899 que corresponde a Marieta dueña del perro llamado Black que es el unico que cumple con los requisitos del ejercicio numero 11.
