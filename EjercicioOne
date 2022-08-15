@@ -1,0 +1,5 @@
+Dueno = ['28957346', 'Juan', 'Perez', '4789689', 'Belgrano 101']
+DNI = Dueno[0]
+TEL = Dueno[3]
+if DNI > 26000000
+   print()
